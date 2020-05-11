@@ -30,7 +30,7 @@ function Banner()
     echo -e "  |_____  ||_____  ||       ||    ___||       ||  _    ||    ___||   |___   "
     echo -e "   _____| | _____| ||   _   ||   |    |   _   || | |   ||   |___ |       |  "
     echo -e "  |\e[95m_______\e[0m||\e[95m_______\e[0m||__| |__||___|    |__| |__||_|  |__||_______||_______|  "
-    echo -e "                                                              \e[105m*V2.1 rev 14\e[0m"
+    echo ""
     echo -e "\e[91m #########################################################################\e[0m"
 
     echo "Welcome to SSHPANEL Installation script!"
@@ -68,10 +68,7 @@ function SetupMonitoringServices() {
     checkServiceInstalled docker
 
     if [ $? -eq 1 ]; then
-        curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "INSTALLING DOCKER", "percentage": "40"}'
-
-        echo "\n\nInstalling Docker"
-        sleep 5
+        curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "INSTALLING MONITORING SERVICE DEPENDENCIES", "percentage": "40"}'
 
         apt-get install docker.io -y
     fi
@@ -117,4 +114,8 @@ AllowServerAccess
 # Install Monitoring Services
 SetupMonitoringServices
 
+# Reset path
+cd
+
+echo "Init Script Done!"
 

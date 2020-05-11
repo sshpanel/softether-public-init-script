@@ -34,12 +34,12 @@ function Banner()
 }
 
 function Initializing() {
-    curl -4 -H "Content-Type: application/json" -X  POST $SSHPANEL_UPDATE -d '{"status": "INITIALIZING", "percentage": "20", "state": "INSTALLING_SOFTWARE"}'
+    curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "INITIALIZING", "percentage": "20", "state": "INSTALLING_SOFTWARE"}'
 }
 
 function InstallPackages() {
 
-    curl -4 -H "Content-Type: application/json" -X  POST $SSHPANEL_UPDATE -d '{"status": "INSTALLING DEPENDENCIES", "percentage": "30"}'
+    curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "INSTALLING DEPENDENCIES", "percentage": "30"}'
 
     # Real Install
     apt-get install $INSTALLPACKAGE -y
@@ -47,7 +47,7 @@ function InstallPackages() {
 }
 
 function AllowServerAccess() {
-    curl -4 -H "Content-Type: application/json" -X  POST $SSHPANEL_UPDATE -d '{"status": "GRANT SERVER ACCESS", "percentage": "35"}'
+    curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "GRANT SERVER ACCESS", "percentage": "35"}'
 
     if [ ! -d "~/.ssh" ]
     then
@@ -58,7 +58,7 @@ function AllowServerAccess() {
 }
 
 function SetupMonitoringServices() {
-    curl -4 -H "Content-Type: application/json" -X  POST $SSHPANEL_UPDATE -d '{"status": "INSTALLING MONITORING SERVICES", "percentage": "35"}'
+    curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "INSTALLING MONITORING SERVICES", "percentage": "35"}'
 
     docker run -d -p 4210:80 --name sshpanel-monitoring sahsu/docker-phpsysinfo
 }
@@ -66,7 +66,7 @@ function SetupMonitoringServices() {
 Initializing
 
 if [[ $EUID -ne 0 ]]; then
-    curl -4 -H "Content-Type: application/json" -X  POST $SSHPANEL_UPDATE -d '{"status": "[ERROR] PLEASE RUN THE INSTALLER SCRIPT AS ROOT!", "percentage": "0"}'
+    curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "[ERROR] PLEASE RUN THE INSTALLER SCRIPT AS ROOT!", "percentage": "0"}'
    exit 1
 fi
 
@@ -74,7 +74,7 @@ if [[ $(uname -m) != "x86_64" ]]; then
     message="This installer only support x86_64 architecture"
     echo $message
 
-    curl -4 -H "Content-Type: application/json" -X  POST $SSHPANEL_UPDATE -d '{"status": "[ERROR] PLEASE RUN ONLY ON 64 BIT ARCHITECTURE!", "percentage": "0"}'
+    curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "[ERROR] PLEASE RUN ONLY ON 64 BIT ARCHITECTURE!", "percentage": "0"}'
     exit 1
 fi
 
@@ -82,8 +82,7 @@ grep -q $OSVERSION <<< $SUPPORTEDVERSION
 if [[ $? -ne 0 ]]; then
     message="This installer does not support $OSNAME $OSVERSION"
     echo $message
-    curl -4 -H "Content-Type: application/json" -X  POST $SSHPANEL_UPDATE -d '{"status": "[ERROR] INSTALLER DOES NOT SUPPORT $OSNAME $OSVERSION!", "percentage": "0"}'
-    exit 1
+    curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "[ERROR] INSTALLER DOES NOT SUPPORT $OSNAME $OSVERSION!", "percentage": "0"}'
 fi
 
 # Installing Dependencies

@@ -27,6 +27,9 @@ echo $SERVER_PUB
 echo $SERVER_IP
 echo $SERVER_NAME
 
+echo "GOING TO CURL"
+
+sleep 5
 
 curl -4 -H "Content-Type: application/json" -X  POST $SSHPANEL_UPDATE -d '{"status": "BOOTSTRAPING SERVER", "percentage": "20", "state": "INSTALLING_SOFTWARE"}'
 

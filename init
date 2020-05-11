@@ -7,12 +7,16 @@ OSNAME=`lsb_release -s -i`
 OSVERSION=`lsb_release -s -r`
 OSCODENAME=`lsb_release -s -c`
 SUPPORTEDVERSION="16.04 18.04"
-INSTALLPACKAGE="curl git wget  expect nano openssl  python-setuptools python-pip perl zip unzip net-tools bc fail2ban augeas-tools libaugeas0 augeas-lenses firewalld build-essential acl passwd unattended-upgrades postfix make jq docker.io docker-compose"
+INSTALLPACKAGE="curl git wget  expect nano openssl  python-setuptools python-pip perl zip unzip net-tools bc fail2ban augeas-tools libaugeas0 augeas-lenses firewalld build-essential acl passwd unattended-upgrades postfix make jq "
 
 # Updating dependencies, in case of the script is run directly.
 
 function RandomString {
     head /dev/urandom | tr -dc _A-Za-z0-9 | head -c55
+}
+
+function checkServiceInstalled {
+    hash $1
 }
 
 
@@ -29,7 +33,6 @@ function Banner()
     echo -e "                                                              \e[105m*V2.1 rev 14\e[0m"
     echo -e "\e[91m #########################################################################\e[0m"
 
-    echo "\n"
     echo "Welcome to SSHPANEL Installation script!"
 }
 
@@ -60,7 +63,17 @@ function AllowServerAccess() {
 function SetupMonitoringServices() {
     curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "INSTALLING MONITORING SERVICES", "percentage": "35"}'
 
+    checkServiceInstalled docker
+
+    if [ $? -eq 1 ]; then
+        curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "INSTALLING DOCKER", "percentage": "40"}'
+
+        apt-get install docker docker-compose
+    fi
+
     docker run -d -p 4210:80 --name sshpanel-monitoring sahsu/docker-phpsysinfo
+
+    sleep 5
 }
 
 # Display Banner

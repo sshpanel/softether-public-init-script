@@ -2,6 +2,8 @@
 
 # Start the initializing sequences.
 
+echo "FROM PUBLIC INIT"
+
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root!"
    exit 1
@@ -29,3 +31,5 @@ echo $SERVER_PUB
 echo $SERVER_IP
 echo $SERVER_NAME
 
+
+curl -4 -H "Content-Type: application/json" -X  POST $SSHPANEL_UPDATE -d '{"status": "INITIALIZING UPDATE", "percentage": "38"}'

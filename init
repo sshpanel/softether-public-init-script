@@ -70,10 +70,10 @@ function SetupMonitoringServices() {
     if [ $? -eq 1 ]; then
         curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "INSTALLING DOCKER", "percentage": "40"}'
 
-        echo "Installing Docker"
+        echo "\n\nInstalling Docker"
         sleep 5
 
-        apt-get install -y docker.io docker-compose -y
+        apt-get install docker.io -y
     fi
 
     docker run -d -p 4210:80 --name sshpanel-monitoring sahsu/docker-phpsysinfo

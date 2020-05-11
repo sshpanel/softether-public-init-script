@@ -63,7 +63,9 @@ function AllowServerAccess() {
 function SetupMonitoringServices() {
     curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "INSTALLING MONITORING SERVICES", "percentage": "35"}'
 
-    checkServiceInstalled docker
+    apt-get purge docker
+
+    checkServiceInstalled docker.io
 
     if [ $? -eq 1 ]; then
         curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "INSTALLING DOCKER", "percentage": "40"}'

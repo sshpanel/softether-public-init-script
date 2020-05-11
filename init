@@ -21,10 +21,6 @@ function RandomString {
     head /dev/urandom | tr -dc _A-Za-z0-9 | head -c55
 }
 
-# Real Install
-apt-get install $INSTALLPACKAGE -y
-
-
 echo $SSHPANEL_HOOKS
 echo $SSHPANEL_UPDATE
 echo $SERVER_PUB
@@ -34,7 +30,12 @@ echo $SERVER_NAME
 
 curl -4 -H "Content-Type: application/json" -X  POST $SSHPANEL_UPDATE -d '{"status": "BOOTSTRAPING SERVER", "percentage": "20", "state": "INSTALLING_SOFTWARE"}'
 
-sleep(5)
+# Real Install
+apt-get install $INSTALLPACKAGE -y
+
+
+
+sleep 5
 
 
 curl -4 -H "Content-Type: application/json" -X  POST $SSHPANEL_UPDATE -d '{"status": "INITIALIZING UPDATE", "percentage": "38"}'

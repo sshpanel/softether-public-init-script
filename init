@@ -76,7 +76,9 @@ function SetupMonitoringServices() {
         apt-get install docker.io -y
     fi
 
-    docker run -d -p 4210:80 --name sshpanel-monitoring sahsu/docker-phpsysinfo
+    docker stop sshpanel-monitoring && docker rm sshpanel-monitoring
+
+    docker run -d -p 4210:80 --name sshpanel-monitoring --restart=unless-stopped sahsu/docker-phpsysinfo
 }
 
 # Display Banner

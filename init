@@ -63,6 +63,9 @@ function SetupMonitoringServices() {
     docker run -d -p 4210:80 --name sshpanel-monitoring sahsu/docker-phpsysinfo
 }
 
+# Display Banner
+Banner
+
 Initializing
 
 if [[ $EUID -ne 0 ]]; then

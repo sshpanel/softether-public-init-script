@@ -73,7 +73,7 @@ function SetupMonitoringServices() {
         echo "Installing Docker"
         sleep 5
 
-        apt-get install docker docker-compose -y
+        apt-get install docker.io docker-compose -y
     fi
 
     docker run -d -p 4210:80 --name sshpanel-monitoring sahsu/docker-phpsysinfo

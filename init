@@ -32,4 +32,9 @@ echo $SERVER_IP
 echo $SERVER_NAME
 
 
+curl -4 -H "Content-Type: application/json" -X  POST $SSHPANEL_UPDATE -d '{"status": "BOOTSTRAPING SERVER", "percentage": "20", "state": "INSTALLING_SOFTWARE"}'
+
+sleep(5)
+
+
 curl -4 -H "Content-Type: application/json" -X  POST $SSHPANEL_UPDATE -d '{"status": "INITIALIZING UPDATE", "percentage": "38"}'

@@ -65,7 +65,7 @@ function SetupMonitoringServices() {
 
     apt-get purge docker -y
 
-    checkServiceInstalled docker.io
+    checkServiceInstalled docker
 
     if [ $? -eq 1 ]; then
         curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "INSTALLING DOCKER", "percentage": "40"}'

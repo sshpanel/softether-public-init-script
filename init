@@ -90,12 +90,12 @@ function Motd()
     echo -e "   _____| | _____| ||   _   ||   |    |   _   || | |   ||   |___ |       |  "
     echo -e "  |\e[95m_______\e[0m||\e[95m_______\e[0m||__| |__||___|    |__| |__||_|  |__||_______||_______|  "
     echo ""
-    echo " |-------------------------------|"
+    echo "  |-------------------------------|"
     echo "    Made with ❤️  by SSHPANEL."
     echo "    Version: 1.0"
     echo "    Website: https://sshpanel.io"
     echo "    Contact: contact@sshpanel.io"
-    echo " |-------------------------------|"
+    echo "  |-------------------------------|"
     echo ""
 
 }

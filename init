@@ -73,6 +73,8 @@ function SetupMonitoringServices() {
         apt-get install docker.io -y
     fi
 
+    curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "BUILDING CONTAINERS", "percentage": "45"}'
+
     docker stop sshpanel-monitoring && docker rm sshpanel-monitoring
 
     sudo docker build -t phpsysinfo github.com/phpsysinfo/phpsysinfo

@@ -144,6 +144,3 @@ Motd > /etc/motd
 
 echo "Init Script Done!"
 
-
-curl -4 -H "Content-Type: application/json" -X  GET $SSHPANEL_UPDATE -d '{"status": "COMPLETED", "percentage": "100", "state": "SETUP_COMPLETED"}'
-

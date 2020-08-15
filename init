@@ -79,7 +79,7 @@ function SetupMonitoringServices() {
 
     sudo docker build -t phpsysinfo github.com/phpsysinfo/phpsysinfo
 
-    docker run -d -p 4210:80 --network host --name sshpanel-monitoring --restart=unless-stopped phpsysinfo
+    docker run -d -p 4210:80 --name sshpanel-monitoring --restart=unless-stopped phpsysinfo
 }
 
 function Motd()

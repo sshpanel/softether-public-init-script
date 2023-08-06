@@ -77,7 +77,7 @@ function SetupMonitoringServices() {
 
     docker stop sshpanel-monitoring && docker rm sshpanel-monitoring
 
-    sudo docker build -t phpsysinfo github.com/phpsysinfo/phpsysinfo
+    sudo docker build -t phpsysinfo github.com/phpsysinfo/phpsysinfo#main
 
     docker run -d -p 4210:80 --name sshpanel-monitoring --restart=unless-stopped phpsysinfo
 }
